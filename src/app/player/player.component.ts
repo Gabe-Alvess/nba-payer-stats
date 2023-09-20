@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PlayerResponse } from '../interfaces/PlayerResponse';
 import { PlayerDataService } from '../service/playerData.service';
 
@@ -7,24 +7,30 @@ import { PlayerDataService } from '../service/playerData.service';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.css'],
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent {
   playerResponse?: PlayerResponse;
-  playerName: string = 'LeBron James';
+  playerName: string = '';
+  playerFound: boolean = false;
+  noPlayerFound: boolean = false;
 
   constructor(private playerDataService: PlayerDataService) {}
 
-  ngOnInit(): void {
-    this.searchPlayer();
-  }
-
   searchPlayer() {
     this.getPlayerData();
+    this.noPlayerFound = false;
+    this.playerFound = false;
   }
 
   private getPlayerData() {
     this.playerDataService.getPlayerResponse(this.playerName).subscribe({
       next: (data: PlayerResponse) => {
-        this.playerResponse = data;
+        if (data.results[0]) {
+          console.log(data);
+          this.playerResponse = data;
+          this.playerFound = true;
+        } else {
+          this.noPlayerFound = true;
+        }
       },
       error: (err: any) => {
         console.error('Error fetching players', err.error);

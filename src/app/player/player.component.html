@@ -8,6 +8,7 @@
         type="text"
         id="playerName"
         [(ngModel)]="playerName"
+        (keyup.enter)="searchPlayer()"
         class="search-input"
         placeholder="Enter player name..."
       />
@@ -16,38 +17,54 @@
   </section>
 
   <section class="player-block">
-    <div *ngIf="playerResponse">
-      <h1>{{ playerResponse.results[0].player_name }}</h1>
-      <div *ngFor="let player of playerResponse.results">
-        <p><strong>Season:</strong> {{ player.season }}</p>
-        <p><strong>Age:</strong> {{ player.age }}</p>
-        <p><strong>Games Played:</strong> {{ player.games }}</p>
-        <p><strong>Games Started:</strong> {{ player.games_started }}</p>
-        <p><strong>Minutes Played:</strong> {{ player.minutes_played }}</p>
-        <p><strong>Field Goals:</strong> {{ player.field_goals }}</p>
-        <p><strong>Field Goal Attempts:</strong> {{ player.field_attempts }}</p>
-        <p><strong>Field Goal Percentage:</strong> {{ player.field_percent }}</p>
-        <p><strong>Three-Point Field Goals:</strong> {{ player.three_fg }}</p>
-        <p><strong>Three-Point Attempts:</strong> {{ player.three_attempts }}</p>
-        <p><strong>Three-Point Percentage:</strong> {{ player.three_percent }}</p>
-        <p><strong>Two-Point Field Goals:</strong> {{ player.two_fg }}</p>
-        <p><strong>Two-Point Attempts:</strong> {{ player.two_attempts }}</p>
-        <p><strong>Two-Point Percentage:</strong> {{ player.two_percent }}</p>
-        <p><strong>Effective Field Goal Percentage:</strong>{{ player.effect_fg_percent }}</p>
-        <p><strong>Free Throws:</strong> {{ player.ft }}</p>
-        <p><strong>Free Throw Attempts:</strong> {{ player.fta }}</p>
-        <p><strong>Free Throw Percentage:</strong> {{ player.ft_percent }}</p>
-        <p><strong>Offensive Rebounds:</strong> {{ player.ORB }}</p>
-        <p><strong>Defensive Rebounds:</strong> {{ player.DRB }}</p>
-        <p><strong>Total Rebounds:</strong> {{ player.TRB }}</p>
-        <p><strong>Assists:</strong> {{ player.AST }}</p>
-        <p><strong>Steals:</strong> {{ player.STL }}</p>
-        <p><strong>Blocks:</strong> {{ player.BLK }}</p>
-        <p><strong>Turnovers:</strong> {{ player.TOV }}</p>
-        <p><strong>Personal Fouls:</strong> {{ player.PF }}</p>
-        <p><strong>Points:</strong> {{ player.PTS }}</p>
-        <p><strong>Team:</strong> {{ player.team }}</p>
-        <hr />
+    <div *ngIf="noPlayerFound">
+      <p><strong>Player not found.</strong></p>
+    </div>
+    <div *ngIf="playerFound">
+      <div *ngIf="playerResponse">
+        <h1>{{ playerResponse.results[0].player_name }}</h1>
+        <div *ngFor="let player of playerResponse.results">
+          <p><strong>Season:</strong> {{ player.season }}</p>
+          <p><strong>Age:</strong> {{ player.age }}</p>
+          <p><strong>Games Played:</strong> {{ player.games }}</p>
+          <p><strong>Games Started:</strong> {{ player.games_started }}</p>
+          <p><strong>Minutes Played:</strong> {{ player.minutes_played }}</p>
+          <p><strong>Field Goals:</strong> {{ player.field_goals }}</p>
+          <p>
+            <strong>Field Goal Attempts:</strong> {{ player.field_attempts }}
+          </p>
+          <p>
+            <strong>Field Goal Percentage:</strong> {{ player.field_percent }}
+          </p>
+          <p><strong>Three-Point Field Goals:</strong> {{ player.three_fg }}</p>
+          <p>
+            <strong>Three-Point Attempts:</strong> {{ player.three_attempts }}
+          </p>
+          <p>
+            <strong>Three-Point Percentage:</strong> {{ player.three_percent }}
+          </p>
+          <p><strong>Two-Point Field Goals:</strong> {{ player.two_fg }}</p>
+          <p><strong>Two-Point Attempts:</strong> {{ player.two_attempts }}</p>
+          <p><strong>Two-Point Percentage:</strong> {{ player.two_percent }}</p>
+          <p>
+            <strong>Effective Field Goal Percentage:</strong
+            >{{ player.effect_fg_percent }}
+          </p>
+          <p><strong>Free Throws:</strong> {{ player.ft }}</p>
+          <p><strong>Free Throw Attempts:</strong> {{ player.fta }}</p>
+          <p><strong>Free Throw Percentage:</strong> {{ player.ft_percent }}</p>
+          <p><strong>Offensive Rebounds:</strong> {{ player.ORB }}</p>
+          <p><strong>Defensive Rebounds:</strong> {{ player.DRB }}</p>
+          <p><strong>Total Rebounds:</strong> {{ player.TRB }}</p>
+          <p><strong>Assists:</strong> {{ player.AST }}</p>
+          <p><strong>Steals:</strong> {{ player.STL }}</p>
+          <p><strong>Blocks:</strong> {{ player.BLK }}</p>
+          <p><strong>Turnovers:</strong> {{ player.TOV }}</p>
+          <p><strong>Personal Fouls:</strong> {{ player.PF }}</p>
+          <p><strong>Points:</strong> {{ player.PTS }}</p>
+          <p><strong>Team:</strong> {{ player.team }}</p>
+          <hr />
+        </div>
       </div>
     </div>
   </section>
